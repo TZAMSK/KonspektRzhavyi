@@ -1,3 +1,6 @@
+use ratatui::style::Color;
+
+#[derive(Clone)]
 pub struct Cursor {
     pub position: u8,
 }
@@ -22,6 +25,14 @@ impl Cursor {
             self.position += 1;
         } else {
             self.position = 0
+        }
+    }
+
+    pub fn color(self, index: usize) -> Color {
+        if index == self.position.into() {
+            Color::Red
+        } else {
+            Color::Gray
         }
     }
 }
