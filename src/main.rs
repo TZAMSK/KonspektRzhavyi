@@ -1,5 +1,6 @@
 mod app;
 mod controls;
+mod file;
 mod ui;
 
 use std::error::Error;
