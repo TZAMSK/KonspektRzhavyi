@@ -1,6 +1,6 @@
 pub mod app;
 mod controls;
-mod file;
+mod entry;
 mod ui;
 
 use std::error::Error;
