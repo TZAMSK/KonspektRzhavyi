@@ -28,4 +28,8 @@ pub fn display_app(frame: &mut Frame, app: &App, main_zone: ratatui::prelude::Re
             layout_based_on_entries(app.entries.count_entries(), main_layout.clone())[index],
         );
     }
+
+    let file_content = Paragraph::new(app.entries.read_file());
+
+    frame.render_widget(file_content, main_layout[1]);
 }

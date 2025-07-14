@@ -22,7 +22,7 @@ fn main() -> color_eyre::Result<()> {
 }
 
 fn run(terminal: &mut DefaultTerminal) -> color_eyre::Result<()> {
-    let mut app = App::default();
+    let mut app = App::init();
 
     loop {
         terminal.draw(|f| {

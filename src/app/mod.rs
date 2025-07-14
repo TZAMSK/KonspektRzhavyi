@@ -7,16 +7,14 @@ pub struct App {
     pub cursor: Cursor,
 }
 
-impl Default for App {
-    fn default() -> Self {
+impl App {
+    pub fn init() -> Self {
         Self {
-            entries: Entry::default(),
-            cursor: Cursor::default(),
+            entries: Entry::init(),
+            cursor: Cursor::init(),
         }
     }
-}
 
-impl App {
     pub fn go_to_path(&mut self) {
         self.entries
             .enter_directory(&self.entries.entries[self.cursor.position as usize].path());
