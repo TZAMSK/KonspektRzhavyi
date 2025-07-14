@@ -1,13 +1,15 @@
-mod generation;
+mod editing_panel;
+mod navigation_panel;
 
 use ratatui::{
-    layout::{Alignment, Constraint, Direction, Layout},
-    style::Style,
-    widgets::{Block, BorderType, Borders, Paragraph},
+    layout::{Constraint, Direction, Layout},
     Frame,
 };
 
-use crate::{app::App, ui::ui_app::generation::layout_based_on_entries};
+use crate::{
+    app::App,
+    ui::ui_app::{editing_panel::editing_panel, navigation_panel::navigation_panel},
+};
 
 pub fn display_app(frame: &mut Frame, app: &App, main_zone: ratatui::prelude::Rect) {
     let main_layout = Layout::default()
@@ -15,21 +17,7 @@ pub fn display_app(frame: &mut Frame, app: &App, main_zone: ratatui::prelude::Re
         .constraints([Constraint::Percentage(20), Constraint::Percentage(80)].as_ref())
         .split(main_zone);
 
-    for (index, entry) in app.entries.entries.iter().enumerate() {
-        frame.render_widget(
-            Paragraph::new(entry.path().to_string_lossy())
-                .alignment(Alignment::Center)
-                .style(Style::default().fg(app.cursor.clone().color(index)))
-                .block(
-                    Block::new()
-                        .borders(Borders::ALL)
-                        .border_type(BorderType::QuadrantOutside),
-                ),
-            layout_based_on_entries(app.entries.count_entries(), main_layout.clone())[index],
-        );
-    }
+    navigation_panel(app, main_layout[0], frame);
 
-    let file_content = Paragraph::new(app.entries.read_file());
-
-    frame.render_widget(file_content, main_layout[1]);
+    editing_panel(app, main_layout[1], frame);
 }

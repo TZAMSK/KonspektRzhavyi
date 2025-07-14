@@ -40,7 +40,7 @@ impl Entry {
     pub fn read_file(&self) -> String {
         match self.current_file {
             Some(_) => fs::read_to_string(&self.current_path).expect("Fle doesn't exist"),
-            None => "Choose a file".to_string(),
+            None => "Nothing here".to_string(),
         }
     }
 
